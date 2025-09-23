@@ -1,0 +1,252 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "nfaapprovers",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.18.7",
+      "toolsId": "e0f62587-9a12-493b-960c-01d2c07e909d"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/nfa-form/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "NfaApprovers-display": {
+          "semanticObject": "NfaApprovers",
+          "action": "display",
+          "title": "{{NfaApprovers-display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.140.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "nfaapprovers.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "RulesList",
+          "target": "RulesList"
+        },
+        {
+          "pattern": "Rules({key}):?query:",
+          "name": "RulesObjectPage",
+          "target": "RulesObjectPage"
+        },
+        {
+          "name": "Rules_RulesToRulesLevelsObjectPage",
+          "pattern": "Rules({key})/RulesToRulesLevels({RulesToRulesLevelsKey}):?query:",
+          "target": "Rules_RulesToRulesLevelsObjectPage"
+        },
+        {
+          "name": "Rules_RulesToRulesLevels_RulesLevelsToRulesApproversObjectPage",
+          "pattern": "Rules({key})/RulesToRulesLevels({RulesToRulesLevelsKey})/RulesLevelsToRulesApprovers({RulesLevelsToRulesApproversKey}):?query:",
+          "target": "Rules_RulesToRulesLevels_RulesLevelsToRulesApproversObjectPage"
+        }
+      ],
+      "targets": {
+        "RulesList": {
+          "type": "Component",
+          "id": "RulesList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Rules",
+              "variantManagement": "Page",
+              "navigation": {
+                "Rules": {
+                  "detail": {
+                    "route": "RulesObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  },
+                  "columns": {
+                    "SwitchFrag": {
+                      "header": "Active",
+                      "width": "8rem",
+                      "position": {
+                        "anchor": "DataField::ruleName",
+                        "placement": "After"
+                      },
+                      "template": "nfaapprovers.ext.fragment.SwitchFrag"
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "RulesObjectPage": {
+          "type": "Component",
+          "id": "RulesObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Rules",
+              "controlConfiguration": {
+                "RulesToRulesCondition/@com.sap.vocabularies.UI.v1.LineItem#RulesConditions": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "RulesToRulesLevels/@com.sap.vocabularies.UI.v1.LineItem#Levels": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              },
+              "navigation": {
+                "RulesToRulesLevels": {
+                  "detail": {
+                    "route": "Rules_RulesToRulesLevelsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Rules_RulesToRulesLevelsObjectPage": {
+          "type": "Component",
+          "id": "Rules_RulesToRulesLevelsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "navigation": {
+                "RulesLevelsToRulesApprovers": {
+                  "detail": {
+                    "route": "Rules_RulesToRulesLevels_RulesLevelsToRulesApproversObjectPage"
+                  }
+                }
+              },
+              "contextPath": "/Rules/RulesToRulesLevels",
+              "content": {
+                "header": {
+                  "visible": true
+                }
+              }
+            }
+          }
+        },
+        "Rules_RulesToRulesLevels_RulesLevelsToRulesApproversObjectPage": {
+          "type": "Component",
+          "id": "Rules_RulesToRulesLevels_RulesLevelsToRulesApproversObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/Rules/RulesToRulesLevels/RulesLevelsToRulesApprovers",
+              "content": {
+                "header": {
+                  "visible": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "nfaapprovers.ext.controller.List"
+          },
+          "sap.fe.templates.ObjectPage.ObjectPageController#nfaapprovers::Rules_RulesToRulesLevelsObjectPage": {
+            "controllerName": "nfaapprovers.ext.controller.RulesToLevelsObjectPage"
+          },
+          "sap.fe.templates.ObjectPage.ObjectPageController#nfaapprovers::Rules_RulesToRulesLevels_RulesLevelsToRulesApproversObjectPage": {
+            "controllerName": "nfaapprovers.ext.controller.RulesLevelsToApprovers"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "NfaApproversAppRouter"
+  }
+}

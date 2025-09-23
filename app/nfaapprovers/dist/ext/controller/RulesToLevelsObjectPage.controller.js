@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/ControllerExtension"],function(e){"use strict";return e.extend("nfaapprovers.ext.controller.RulesToLevelsObjectPage",{override:{onInit:function(){debugger;sap.ui.getCore().byId("nfaapprovers::Rules_RulesToRulesLevelsObjectPage--fe::EditableHeaderSubSection").setVisible(false);var e=this.base.getExtensionAPI().getModel()}}})});
+//# sourceMappingURL=RulesToLevelsObjectPage.controller.js.map

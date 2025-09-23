@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/ControllerExtension"],function(e){"use strict";return e.extend("nfaapprovers.ext.controller.ApproversObjectPage",{override:{onInit:function(){debugger;var e=this.base.getExtensionAPI().getModel()}}})});
+//# sourceMappingURL=ApproversObjectPage.controller.js.map
