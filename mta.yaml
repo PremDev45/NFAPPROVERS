@@ -7,7 +7,7 @@ modules:
   type: nodejs
   path: gen/srv
   requires:
-  - name: NFAApprovers-db
+  - name: NfaDb-db
   - name: uaa_NFAApprovers
   provides:
   - name: srv-api
@@ -20,9 +20,9 @@ modules:
     builder: npm-ci
 - name: NFAApprovers-db-deployer
   type: hdb
-  path: gen/db
+  path: db
   requires:
-  - name: NFAApprovers-db
+  - name: NfaDb-db
   parameters:
     buildpack: nodejs_buildpack
 - name: NFAApprovers-destination-content
@@ -80,7 +80,7 @@ modules:
     - npm run build:cf
     supported-platforms: []
 resources:
-- name: NFAApprovers-db
+- name: NfaDb-db
   type: com.sap.xs.hdi-container
   parameters:
     service: hana
